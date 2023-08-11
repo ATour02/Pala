@@ -5,7 +5,7 @@ const config = {
   type: Phaser.AUTO,
   width: 800,
   height: 600,
-  backgroundColor: '#4488aa',
+  backgroundColor:'#4488aa',
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
@@ -30,6 +30,5 @@ const config = {
   // Remember to import the scene before adding it to the list
   scene: [Game],
 };
-export {config};
 // Create a new Phaser game instance
 window.game = new Phaser.Game(config);

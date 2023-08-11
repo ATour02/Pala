@@ -39,7 +39,7 @@ export default class Game extends Phaser.Scene {
       this.physics.add.collider(
         this.ball,
         this.playb,
-        this.contadorRebote,
+        this.countBound,
         null,
         this
       );
@@ -49,6 +49,8 @@ export default class Game extends Phaser.Scene {
         fill: "#fff",
         fontFamily: "Bond",
       });
+
+      this.backgroundColor = "#22442f";
     }
   
     update() {
@@ -71,5 +73,13 @@ export default class Game extends Phaser.Scene {
       this.ball.setVelocityX(this.ball.body.velocity.x * 1.1);
       this.ball.setVelocityY(this.ball.body.velocity.y * 1.1);
     }
+    countBound(ball, playb) {
+        this.contadorBounce++;
+        console.log(this.contadorBounce);
+        if (this.contadorBounce === 2) {
+          //this.pasarNivel();
+          this.config.backgroundColor("#22442f")
+        }
+      } 
   }
   export { Game };
