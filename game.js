@@ -74,8 +74,12 @@ export default class Game extends Phaser.Scene {
         fontFamily: "Bond",
       });
       this.textLose.setVisible(false);
-
-      this.backgroundColor = "#22442f";
+      this.textWin = this.add.text(58, 200, "Ganaste, clickealo para reintentar", {
+        fontSize: "50px",
+        fill: "#fff",
+        fontFamily: "Bond",
+      });
+      this.textWin.setVisible(false);
     }
   
     update() {
@@ -93,19 +97,26 @@ export default class Game extends Phaser.Scene {
         this.playb.setPosition(400, 360)
         this.playb.on("pointerup", () => {
         this.scene.start("Game");
-
       })
-       }
+    }
+    if (this.contadorNivel === 4) {
+        this.textWin.setVisible(true);
+        this.ball.disableBody(true, true);
+        this.playb.setPosition(400, 360)
+        this.playb.on("pointerup", () => {
+        this.scene.start("Game");
+      })
+    }
 }
   
     moreVelocityball() {
-      this.ball.setVelocityX(this.ball.body.velocity.x * 1.1);
-      this.ball.setVelocityY(this.ball.body.velocity.y * 1.1);
+      this.ball.setVelocityX(this.ball.body.velocity.x * 1.075);
+      this.ball.setVelocityY(this.ball.body.velocity.y * 1.075);
     }
     countBound(ball, playb) {
         this.contadorBounce++;
         console.log(this.contadorBounce);
-        if (this.contadorBounce === 2) {
+        if (this.contadorBounce === 1) {
           this.nextLevel();
         }
     console.log(this.isLose)
@@ -116,6 +127,9 @@ export default class Game extends Phaser.Scene {
         this.contadorNivel++;
         this.textLevel.setText("Nivel: " + this.contadorNivel);
         this.moreVelocityball();
+        if (this.contadorNivel === 10) {
+        this.isWinner = true;
+        }
       }
     destroyBall(){
     this.ball.disableBody(true, true);
