@@ -12,7 +12,7 @@ export default class Game extends Phaser.Scene {
       // load assets
       this.load.image("Pj", "./images/Pj.png");
       this.load.image("ball", "./images/Ball2.png");
-      this.load.image("rect", "./assets/rectangle.png");
+      this.load.image("rect", "./images/rectangle.png");
       this.cursors = this.input.keyboard.createCursorKeys();
     }
   
@@ -44,6 +44,11 @@ export default class Game extends Phaser.Scene {
         this
       );
       this.physics.add.collider(this.ball, this.obstac, null, null, this);
+      this.textLevel = this.add.text(16, 16, "Nivel: 1", {
+        fontSize: "30px",
+        fill: "#fff",
+        fontFamily: "Bond",
+      });
     }
   
     update() {
@@ -62,7 +67,7 @@ export default class Game extends Phaser.Scene {
       }
     }
   
-    aumentarVelocidadball() {
+    moreVelocityball() {
       this.ball.setVelocityX(this.ball.body.velocity.x * 1.1);
       this.ball.setVelocityY(this.ball.body.velocity.y * 1.1);
     }
