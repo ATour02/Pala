@@ -1,8 +1,9 @@
+
 export default class Game extends Phaser.Scene {
     constructor() {
       super("Game");
     }
-  
+   
     init() {
       this.contadorBounce = 0;
       this.contadorNivel = 1;
@@ -99,7 +100,7 @@ export default class Game extends Phaser.Scene {
         this.scene.start("Game");
       })
     }
-    if (this.contadorNivel === 4) {
+    if (this.contadorNivel === 20) {
         this.textWin.setVisible(true);
         this.ball.disableBody(true, true);
         this.playb.setPosition(400, 360)
@@ -116,7 +117,7 @@ export default class Game extends Phaser.Scene {
     countBound(ball, playb) {
         this.contadorBounce++;
         console.log(this.contadorBounce);
-        if (this.contadorBounce === 1) {
+        if (this.contadorBounce === 10) {
           this.nextLevel();
         }
     console.log(this.isLose)
@@ -130,11 +131,35 @@ export default class Game extends Phaser.Scene {
         if (this.contadorNivel === 10) {
         this.isWinner = true;
         }
+        this.addobstac();
       }
     destroyBall(){
     this.ball.disableBody(true, true);
     this.isLose = true;
     console.log(this.isLose)
     }
+    addobstac() {
+      const randomX = Phaser.Math.RND.between(0, 800);
+      const randomY = Phaser.Math.RND.between(60, 300);
+      const escalaAleatoria = Phaser.Math.RND.between(1, 20) / 100;
+      const obstacl = this.obstac
+        .create(randomX, randomY, "rect", 0, true)
+        .setImmovable(true)
+        .setScale(escalaAleatoria);
+        obstacl.setOrigin(0.5, 0.5);
+        obstacl.refreshBody();
+  
+      const nuevoAncho = obstacl.width * escalaAleatoria;
+      const nuevoAlto = obstacl.height * escalaAleatoria;
+      obstacl.body.setSize(nuevoAncho, nuevoAlto);
+  
+      this.obstac.children.iterate((child) => {
+        const childNuevoAncho = child.width * child.scaleX;
+        const childNuevoAlto = child.height * child.scaleY;
+        child.body.setSize(childNuevoAncho, childNuevoAlto);
+      });
+    }
+
+  
   }
   export { Game };
